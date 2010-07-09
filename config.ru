@@ -12,6 +12,6 @@ run Proc.new { |env|
       [200, {"Content-Type" => "text/xml"}, http.request(request).body]
     end
   else
-    [404, {"Content-Type" => "text/plain"}, "Not found"] unless 
+    [404, {"Content-Type" => "text/plain"}, "Not found"] 
   end
 }
