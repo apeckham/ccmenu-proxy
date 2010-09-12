@@ -1,12 +1,15 @@
-require 'net/http'
+require 'net/https'
 
 class ProxyApp
   def call(env)
     if env["PATH_INFO"] == "/cc.xml"
       begin
-        Net::HTTP.start(ENV["HOSTNAME"]) do |http|
-          request = Net::HTTP::Get.new("/cc.xml")
-          request.basic_auth ENV["USERNAME"], ENV["PASSWORD"]
+        http = Net::HTTP.new("staging.urbandictionary.com", 443)
+        http.use_ssl = true
+        
+        http.start do |http|
+          request = Net::HTTP::Get.new("/build/cc.xml")
+          request.basic_auth "view", "neth7em2"
           response = http.request(request)
         
           if response.is_a? Net::HTTPOK
